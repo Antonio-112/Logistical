@@ -1,0 +1,39 @@
+package com.latam.JPAcrud.modelo;
+
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@SequenceGenerator(name="SQ_PRODUCTO", initialValue=1,allocationSize=1,sequenceName="SQ_PRODUCTO")
+public class Productos {
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SQ_PRODUCTO")
+	private Integer idProductos;
+	private String nombre;
+	private Integer precio;
+	private Integer stock;
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+
+}
