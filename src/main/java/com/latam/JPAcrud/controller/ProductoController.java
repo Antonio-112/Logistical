@@ -18,25 +18,24 @@ import com.latam.JPAcrud.vo.ProductoVO;
 
 @Controller
 public class ProductoController {
-	
+
 	private static final Logger log = LoggerFactory.getLogger(ProductoController.class);
 
 	@Autowired
 	ProductoService svc;
-	
-	
+
 	/**
-	* Las solicitudes de la pagina principal
-	*/
+	 * Las solicitudes de la pagina principal
+	 */
 	@GetMapping({ "/" })
 	public String home(Model model) {
 		model.addAttribute("VO", svc.getAllProductos());
-	return "home";
+		return "home";
 	}
-	
+
 	/**
-	* Abre el formulario de edición cargando los datos del usuario
-	*/
+	 * Abre el formulario de edición cargando los datos del usuario
+	 */
 	@GetMapping("/editarForm")
 	public ModelAndView editarForm(Model model, @RequestParam String idProductos, RedirectAttributes ra) {
 		ProductoVO respuestaServicio = new ProductoVO();
@@ -44,24 +43,23 @@ public class ProductoController {
 		try {
 			Integer id = (Integer.parseInt(idProductos));
 			respuestaServicio = svc.findById(id);
-			//System.out.println(respuestaServicio.getProductos().get(id).getIdProductos());
 			model.addAttribute("mensaje", respuestaServicio.getMensaje());
-			model.addAttribute("VO", respuestaServicio.getProductos().get(0));
+			model.addAttribute("VO", respuestaServicio.getProducto().get(0));
 			return new ModelAndView("editar");
 		} catch (Exception e) {
-			log.error("Error en editarForm editar", e);
+			log.error("Error en editarForm en ProductoController", e);
 		}
-	ra.addFlashAttribute("mensaje", respuestaServicio.getMensaje());
-	respuestaServicio = svc.getAllProductos();
-	return new ModelAndView("redirect:/");
+		ra.addFlashAttribute("mensaje", respuestaServicio.getMensaje());
+		respuestaServicio = svc.getAllProductos();
+		return new ModelAndView("redirect:/");
 	}
-	
+
 	/**
-	* Llama al método del servicio que se encarga de actualizar los datos del usuario en base de datos
-	*/
+	 * Llama al método del servicio que se encarga de actualizar los datos del
+	 * usuario en base de datos
+	 */
 	@PostMapping("/editar")
 	public ModelAndView editar(@ModelAttribute Productos producto, RedirectAttributes ra) {
-		//producto.setIdProductos(idProductos);
 		ProductoVO respuestaServicio = svc.update(producto);
 		ra.addFlashAttribute("mensaje", respuestaServicio.getMensaje());
 		if (respuestaServicio.getCodigo().equals("0")) {
@@ -70,35 +68,36 @@ public class ProductoController {
 			return new ModelAndView("redirect:/editarForm");
 		}
 	}
-	
+
 	/**
-	* Abre el formulario de creación de usuarios
-	*/
+	 * Abre el formulario de creación de usuarios
+	 */
 	@GetMapping("/agregarForm")
 	public String agregarForm(Model model) {
 		return "agregar";
 	}
-	
+
 	/**
-	* Llama al método del servicio que se encarga de crear los datos del usuario en base de datos
-	*/
+	 * Llama al método del servicio que se encarga de crear los datos del usuario en
+	 * base de datos
+	 */
 	@PostMapping("/agregar")
 	public ModelAndView agregarSubmit(@ModelAttribute Productos producto, RedirectAttributes ra) {
 		ProductoVO respuestaServicio = svc.add(producto);
 		ra.addFlashAttribute("mensaje", respuestaServicio.getMensaje());
 		if (respuestaServicio.getCodigo().equals("0")) {
-			return new ModelAndView("redirect:/");	
+			return new ModelAndView("redirect:/");
 		} else {
 			return new ModelAndView("redirect:/agregarForm");
 		}
 	}
-	
+
 	/**
-	* Llama al método del servicio que se encarga de eliminar los datos del usuario en base de datos
-	* y redirecciona al home.
-	*/
+	 * Llama al método del servicio que se encarga de eliminar los datos del usuario
+	 * en base de datos y redirecciona al home.
+	 */
 	@GetMapping("/eliminar")
-	public ModelAndView eliminar(Model model, @RequestParam String idProductos, RedirectAttributes ra){
+	public ModelAndView eliminar(Model model, @RequestParam String idProductos, RedirectAttributes ra) {
 		ProductoVO respuestaServicio = new ProductoVO();
 		respuestaServicio.setMensaje("No se pudo eliminar al usuario, intente nuevamente.");
 		try {
@@ -115,5 +114,5 @@ public class ProductoController {
 		ra.addAttribute("VO", respuestaServicio);
 		return new ModelAndView("redirect:/");
 	}
-	
+
 }

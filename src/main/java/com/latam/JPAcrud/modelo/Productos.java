@@ -22,7 +22,7 @@ public class Productos {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SQ_PRODUCTO")
 	private Integer idProductos;
 	private String nombre;
-	private Integer precio;
+	private long precio;
 	private Integer stock;
 	
 	

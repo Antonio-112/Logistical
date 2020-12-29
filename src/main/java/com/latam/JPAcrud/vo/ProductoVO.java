@@ -12,16 +12,16 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(callSuper = true)
 public class ProductoVO extends GenericVO {
 	
-	List<Productos> producto;
+	private List<Productos> producto;
 	
 	public ProductoVO(String mensaje, String codigo, List<Productos> producto) {
 		super(mensaje, codigo);
 		this.producto = producto;
 	}
-	public List<Productos> getProductos() {
+	public List<Productos> getProducto() {
 		return producto;
 	}
-	public void setProductos(List<Productos> producto) {
+	public void setProducto(List<Productos> producto) {
 		this.producto = producto;
 	}
 	

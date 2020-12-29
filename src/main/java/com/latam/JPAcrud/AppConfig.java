@@ -20,7 +20,6 @@ public class AppConfig {
 	Environment environment;
 	
 	@Bean
-	
 	DataSource dataSource() {
 	DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
 	driverManagerDataSource.setUrl(environment.getProperty("url"));
