@@ -30,8 +30,8 @@ public class ProductoServiceImpl implements ProductoService {
 	public ProductoVO getAllProductos() {
 		respuesta = new ProductoVO("102", "Ha ocurrido un error", new ArrayList<Productos>());
 		try {
-			respuesta.setProductos((List<Productos>) dao.findAll());
-			respuesta.setMensaje(String.format("Se ha/n encontrado %d registro/s", respuesta.getProductos().size()));
+			respuesta.setProducto((List<Productos>) dao.findAll());
+			respuesta.setMensaje(String.format("Se ha/n encontrado %d registro/s", respuesta.getProducto().size()));
 			respuesta.setCodigo("0");
 		} catch (Exception e) {
 			log.trace("Usuario Service: Error en getAllUsuarios", e);
@@ -46,7 +46,7 @@ public class ProductoServiceImpl implements ProductoService {
 		try {
 			List<Productos> producto = dao.findByNombre(nombre);
 			if (producto.size() > 0) {
-				respuesta.setProductos(producto);
+				respuesta.setProducto(producto);
 				respuesta.setMensaje("Producto encontrado correctamente.");
 				respuesta.setCodigo("0");
 			} else {
@@ -107,7 +107,7 @@ public class ProductoServiceImpl implements ProductoService {
 		try {
 
 			Productos producto = dao.findById(id).get();
-			respuesta.getProductos().add(producto);
+			respuesta.getProducto().add(producto);
 			respuesta.setMensaje("Producto encontrado correctamente.");
 			respuesta.setCodigo("0");
 		} catch (Exception e) {
@@ -124,7 +124,7 @@ public class ProductoServiceImpl implements ProductoService {
 			PageRequest pageable = PageRequest.of(pagina, cantidad);
 			Page<Productos> responsePage = dao.findAll(pageable);
 			respuesta.setProducto(responsePage.getContent());
-			respuesta.setMensaje(String.format("Se ha/n encontrado %d registro/s", respuesta.getProductos().size()));
+			respuesta.setMensaje(String.format("Se ha/n encontrado %d registro/s", respuesta.getProducto().size()));
 			respuesta.setCodigo("0");
 		} catch (Exception e) {
 			log.trace("Usuario Service: Error en getPage", e);

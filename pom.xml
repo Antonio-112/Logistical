@@ -12,7 +12,7 @@
 	<artifactId>JPA-crud</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>JPA-crud2</name>
+	<name>JPA-crud</name>
 	<description>Cracion Crud con JPA</description>
 
 	<properties>
